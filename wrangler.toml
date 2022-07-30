@@ -1,0 +1,12 @@
+name = "secrets"
+type = "webpack"
+account_id = "3283610f1448bb80728e888333e3177a"
+workers_dev = true
+route = ""
+zone_id = "5650cb4a7d10e6d8fb42f3f33904aded"
+webpack_config = "node_modules/flareact/webpack"
+compatibility_date = "2022-07-29"
+
+[site]
+bucket = "out"
+entry-point = "./"
