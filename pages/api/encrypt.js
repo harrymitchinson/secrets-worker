@@ -7,16 +7,19 @@ export default async (event) => {
   }
   const { body } = request;
   const { ttl, secret } = body;
-
+  console.log(crypto);
   const encrypted = encrypt(secret, "password");
 
-  await SECRETS.put(id, encrypted, { expirationTtl: ttl });
+  // await SECRETS.put(id, encrypted, { expirationTtl: ttl });
 
   return new Response(
-    {
-      id,
-      password,
-    },
+    JSON.stringify({
+      id: 12345,
+      password: "hello",
+      ttl,
+      secret,
+      encrypted,
+    }),
     { status: 201 }
   );
 };

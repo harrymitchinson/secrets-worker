@@ -1,5 +1,7 @@
+import { useRouter } from "flareact/router";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "react-query";
 
 const oneMinute = 60;
 const ttls = [
@@ -37,17 +39,46 @@ const ttls = [
   },
 ];
 
+const encryptHandler = async ({ secret, ttl }) => {
+  const sleep = (delay) =>
+    new Promise((resolve) => {
+      setTimeout(() => resolve(), delay);
+    });
+
+  sleep(10000);
+  const res = await fetch("/api/encrypt", {
+    body: JSON.stringify({
+      secret,
+      ttl,
+    }),
+    method: "POST",
+  });
+  return res.json();
+};
+
 export default function Form() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const { mutate, data, isSuccess, isLoading } = useMutation(encryptHandler, {
+    onSuccess: () => {
+      router.push("/secret/[id]", `/secret/${data.id}`);
+    },
+  });
+  console.log(data);
+
+  const onSubmit = async (form) => {
+    await mutate(form);
+  };
   console.log(errors);
 
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full max-w-s">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -57,18 +88,19 @@ export default function Form() {
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="secret"
           >
-            Secret
+            Secret content
           </label>
           <textarea
             {...{
               ...register("secret", { required: true, min: 1 }),
+              rows: 7,
               className:
                 "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
             }}
           />
           {errors.secret?.type === "required" && (
-            <p className="text-red-500 text-xs italic">
-              Please enter a secret.
+            <p className="text-red-700 text-xs pt-2 font-medium">
+              Please enter a secret
             </p>
           )}
         </div>
@@ -109,7 +141,8 @@ export default function Form() {
 
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            disabled={isLoading}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
             type="submit"
           >
             Create secret link
