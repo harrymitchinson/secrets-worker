@@ -25,7 +25,8 @@ export async function getEdgeProps({ params: { id } }: EdgeProps) {
   return {
     props: { id } as SecretProps,
     notFound: secret == null,
-    revalidate: secret == null ? 60 : 0
+    // Never cache this response
+    revalidate: 0
   }
 }
 
@@ -51,10 +52,11 @@ const decryptHandler = async ({ id, password }: Values): Promise<DecryptResponse
 
 export default function Secret({ id, notFound }) {
   const router = useRouter()
-  const { mutateAsync, data, isLoading, isSuccess, error } = useMutation<DecryptResponse, Error, Values, any>(decryptHandler);
+  const { mutate, data, isLoading, isSuccess, error } = useMutation<DecryptResponse, Error, Values, any>(decryptHandler);
 
-  const onSubmitHandler = async (data: Values) => {
-    await mutateAsync(data);
+  const onSubmitHandler = async (data: Values, event: React.BaseSyntheticEvent) => {
+    event.preventDefault();
+    await mutate(data);
   };
 
   const resetHandler = () => {

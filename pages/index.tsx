@@ -67,15 +67,18 @@ export async function getEdgeProps({ event: { request: { url } } }: { event: Eve
       url,
       ttls
     } as IndexProps,
-    revalidate: 60
+    revalidate: 0
   };
 }
 
 export default function Index({ url, ttls }: IndexProps) {
-  const { mutateAsync, data, isLoading, isSuccess, reset } = useMutation(encryptHandler);
+  const { mutate, data, isLoading, isSuccess, reset } = useMutation<EncryptResponse, Error, Values, any>(encryptHandler);
 
-  const onSubmitHandler = async (data: Values) => {
-    await mutateAsync(data);
+  const onSubmitHandler = async (data: Values, event: React.BaseSyntheticEvent) => {
+    console.log(data)
+    console.log(event)
+    event.preventDefault();
+    await mutate(data);
   };
 
   const resetHandler = () => {

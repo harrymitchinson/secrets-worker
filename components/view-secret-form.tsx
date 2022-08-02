@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import React, { useEffect } from 'react';
 import TextError from "./text-error";
+import Button from "./button";
 
 export interface Props {
   id: string
-  onSubmit: (data: Values) => Promise<void>
+  onSubmit: (data: Values, event: React.BaseSyntheticEvent) => Promise<void>
   disabled: boolean
   error: Error
 }
@@ -24,7 +25,7 @@ export default function ViewSecretForm({ id, onSubmit, disabled, error }: Props)
 
   useEffect(() => {
     if (error != null) {
-      setError("password", {type: "custom", "message": error.message})
+      setError("password", { type: "custom", "message": error.message })
     }
   }, [error])
 
@@ -49,21 +50,9 @@ export default function ViewSecretForm({ id, onSubmit, disabled, error }: Props)
             min: 1,
           })}
         />
-        {errors.password && (
-          <TextError>{errors.password.message}</TextError>
-        )}
-
+        {errors.password && (<TextError>{errors.password.message}</TextError>)}
       </div>
-
-      <div className="">
-        <button
-          disabled={disabled}
-          className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
-          type="button"
-        >
-          {disabled ? "Loading..." : "View secret"}
-        </button>
-      </div>
+      <Button colour="bg-teal-600" hover="hover:bg-teal-700" disabled={disabled}>{disabled ? "Loading..." : "View secret"}</Button>
     </form>
   </>);
 
