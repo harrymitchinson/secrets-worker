@@ -1,91 +1,38 @@
-import { useRouter } from "flareact/router";
-import React from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "react-query";
+import React from 'react';
 
-const oneMinute = 60;
-const ttls = [
-  {
-    name: "5 minutes",
-    value: oneMinute * 5,
-  },
-  {
-    name: "30 minutes",
-    value: oneMinute * 30,
-  },
-  {
-    name: "1 hour",
-    value: oneMinute * 60,
-  },
-  {
-    name: "4 hours",
-    value: oneMinute * 60 * 4,
-  },
-  {
-    name: "12 hours",
-    value: oneMinute * 60 * 12,
-  },
-  {
-    name: "1 day",
-    value: oneMinute * 60 * 24,
-  },
-  {
-    name: "3 days",
-    value: oneMinute * 60 * 24 * 3,
-  },
-  {
-    name: "7 days",
-    value: oneMinute * 60 * 24 * 7,
-  },
-];
+export interface TTL {
+  name: string
+  value: number
+}
 
-const encryptHandler = async ({ secret, ttl }) => {
-  const sleep = (delay) =>
-    new Promise((resolve) => {
-      setTimeout(() => resolve(), delay);
-    });
+export interface Props {
+  ttls: TTL[]
+  onSubmit: (data: Values) => Promise<void>
+  disabled: boolean
+}
 
-  sleep(10000);
-  const res = await fetch("/api/encrypt", {
-    body: JSON.stringify({
-      secret,
-      ttl,
-    }),
-    method: "POST",
-  });
-  return res.json();
-};
+export interface Values {
+  secret: string
+  ttl: number
+}
 
-export default function Form() {
-  const router = useRouter();
-
+export default function Create({ ttls, onSubmit, disabled }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { mutate, data, isSuccess, isLoading } = useMutation(encryptHandler, {
-    onSuccess: () => {
-      router.push("/secret/[id]", `/secret/${data.id}`);
-    },
-  });
-  console.log(data);
-
-  const onSubmit = async (form) => {
-    await mutate(form);
-  };
-  console.log(errors);
-
   return (
-    <div className="w-full max-w-s">
+    <div className="">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="w-full max-w-s"
       >
         <div className="mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 font-bold mb-2"
             htmlFor="secret"
           >
             Secret content
@@ -107,7 +54,7 @@ export default function Form() {
 
         <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
+            className="block text-gray-700 font-bold mb-2"
             htmlFor="ttl"
           >
             Time to live
@@ -141,7 +88,7 @@ export default function Form() {
 
         <div className="flex items-center justify-between">
           <button
-            disabled={isLoading}
+            disabled={disabled}
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
             type="submit"
           >
@@ -151,4 +98,5 @@ export default function Form() {
       </form>
     </div>
   );
+
 }
