@@ -64,6 +64,7 @@ export async function getEdgeProps({ event: { request: { url } } }: { event: Eve
       url,
       ttls
     } as IndexProps,
+    revalidate: 60,
   };
 }
 
