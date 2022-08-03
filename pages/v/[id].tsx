@@ -1,4 +1,4 @@
-import ViewSecret, { Props, Values } from "../../components/view-secret-form";
+import ViewSecret, { Values } from "../../components/view-secret-form";
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "flareact/router";
@@ -54,8 +54,7 @@ export default function Secret({ id, notFound }) {
   const router = useRouter()
   const { mutate, data, isLoading, isSuccess, error } = useMutation<DecryptResponse, Error, Values, any>(decryptHandler);
 
-  const onSubmitHandler = async (data: Values, event: React.BaseSyntheticEvent) => {
-    event.preventDefault();
+  const onSubmitHandler = async (data: Values) => {
     await mutate(data);
   };
 

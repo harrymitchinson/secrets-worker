@@ -2,19 +2,21 @@ import "../styles.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
+import Footer from "../components/footer";
 
 const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <main className="relative bg-zinc-900 text-sm h-screen flex flex-1 flex-col overflow-hidden py-4 px-4 sm:px-6 lg:px-8">
-        <div className="relative flex flex-1 flex-col items-center justify-center py-12">
-          <div className="w-full max-w-xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div className="relative bg-gray-900 text-gray-800 dark:text-gray-200 text-md h-screen flex flex-1 flex-col overflow-hidden sm:px-6 lg:px-8">
+        <div className="relative sm:flex flex-1 flex-col items-center justify-center">
+          <main className="w-full max-w-screen-sm bg-gray-100 dark:bg-gray-800 shadow-md py-8 px-4 sm:p-8">
             <Component {...pageProps} />
-          </div>
+          </main>
+          <Footer />
         </div>
-      </main>
-    </QueryClientProvider>
+      </div>
+    </QueryClientProvider >
   );
 }

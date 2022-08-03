@@ -8,8 +8,9 @@ export interface Props {
 export default function CreateAnotherSecret({ onClick }: Props) {
   return (
     <div className="w-full max-w-s">
-      <div className="my-4 h-px bg-gray-300"></div>
-      <Button colour="bg-orange-600" hover="hover:bg-orange-700" onClick={onClick}>Create a new secret</Button>
+      <div className="mb-8 h-px border border-gray-100 dark:border-gray-600"></div>
+      <Button
+        onClick={onClick}>Create a new secret</Button>
     </div>
   )
 }

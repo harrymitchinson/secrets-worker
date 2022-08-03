@@ -5,7 +5,7 @@ import Button from "./button";
 
 export interface Props {
   id: string
-  onSubmit: (data: Values, event: React.BaseSyntheticEvent) => Promise<void>
+  onSubmit: (data: Values) => Promise<void>
   disabled: boolean
   error: Error
 }
@@ -37,14 +37,14 @@ export default function ViewSecretForm({ id, onSubmit, disabled, error }: Props)
       <input {...register("id")} hidden={true} value={id} />
       <div className="mb-4">
         <label
-          className="block text-zinc-600 font-bold mb-2"
+          className="block font-bold mb-2"
           htmlFor="password"
         >
           Password
         </label>
         <input
           type="text"
-          className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+          className="block appearance-none w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
           {...register("password", {
             required: "This is required",
             min: 1,
@@ -52,7 +52,7 @@ export default function ViewSecretForm({ id, onSubmit, disabled, error }: Props)
         />
         {errors.password && (<TextError>{errors.password.message}</TextError>)}
       </div>
-      <Button colour="bg-teal-600" hover="hover:bg-teal-700" disabled={disabled}>{disabled ? "Loading..." : "View secret"}</Button>
+      <Button disabled={disabled}>{disabled ? "Loading..." : "View secret"}</Button>
     </form>
   </>);
 

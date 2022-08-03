@@ -11,7 +11,7 @@ export interface TTL {
 export interface Props {
   ttls: TTL[]
   disabled: boolean
-  onSubmit: (data: Values, event: React.BaseSyntheticEvent) => Promise<void>
+  onSubmit: (data: Values) => Promise<void>
 }
 
 export interface Values {
@@ -34,14 +34,15 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
       >
         <div className="mb-4">
           <label
-            className="block text-zinc-600 font-bold mb-2"
+            className="block font-bold mb-2"
             htmlFor="secret"
           >
             Secret content
           </label>
-          <textarea rows={7}
+          <textarea
+            rows={7}
             title="Secret content"
-            className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+            className="block appearance-none w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
             {...register("secret", { required: "This is required", min: 1 })}
           />
           {errors.secret && (<TextError>{errors.secret.message}</TextError>)}
@@ -49,7 +50,7 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
 
         <div className="mb-6">
           <label
-            className="block text-zinc-600 font-bold mb-2"
+            className="block font-bold mb-2"
             htmlFor="ttl"
           >
             Time to live
@@ -57,7 +58,7 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
           <div className="inline-block relative w-full">
             <select
               title="Time to live"
-              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              className="block appearance-none w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
               {...register("ttl", { required: true })}>
               {ttls.map(({ name, value }) => (
                 <option key={value} value={value}>
@@ -65,7 +66,7 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-zinc-600">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2">
               <svg
                 className="fill-current h-4 w-4"
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,10 +77,7 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
             </div>
           </div>
         </div>
-        <Button
-          colour="bg-teal-600"
-          hover="hover:bg-teal-700"
-          disabled={disabled}>{disabled ? "Loading..." : "Create secret link"}</Button>
+        <Button disabled={disabled}>{disabled ? "Loading..." : "Create secret link"}</Button>
       </form>
     </>
   );
