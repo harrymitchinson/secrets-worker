@@ -16,7 +16,7 @@ export default function NotFound() {
   const router = useRouter()
 
   const resetHandler = () => {
-    router.push("/create");
+    router.push("/");
   }
   return (<>
     <Title title="404">404 😔</Title>

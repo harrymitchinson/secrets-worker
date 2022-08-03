@@ -7,7 +7,7 @@
     ],
     "types": [
       "@cloudflare/workers-types",
-      
+
     ],
     "jsx": "react",
     "allowSyntheticDefaultImports": true

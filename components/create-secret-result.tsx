@@ -27,8 +27,8 @@ export default function CreateSecretResult({ url, password }: Props) {
           value={password}
           readOnly={true}
         />
-        <div>Once you leave this page, you will not be able to see the password again.</div>
       </div>
+      <div className="mb-4">Once you leave this page, you will not be able to see the password again.</div>
     </div>
   )
 }
