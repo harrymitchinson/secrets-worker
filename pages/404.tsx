@@ -20,7 +20,7 @@ export default function NotFound() {
   }
   return (<>
     <Title title="404">404 😔</Title>
-    <div className="w-full max-w-s mb-4">
+    <div className="w-full max-w-s mb-8">
       The requested page was not found or no longer exists.
     </div>
     <CreateAnotherSecret onClick={resetHandler} />

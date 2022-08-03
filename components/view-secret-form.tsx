@@ -44,7 +44,7 @@ export default function ViewSecretForm({ id, onSubmit, disabled, error }: Props)
         </label>
         <input
           type="text"
-          className="block appearance-none w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
+          className="block appearance-none rounded w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
           {...register("password", {
             required: "This is required",
             min: 1,

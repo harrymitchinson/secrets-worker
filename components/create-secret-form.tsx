@@ -42,7 +42,7 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
           <textarea
             rows={7}
             title="Secret content"
-            className="block appearance-none w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
+            className="block appearance-none w-full rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
             {...register("secret", { required: "This is required", min: 1 })}
           />
           {errors.secret && (<TextError>{errors.secret.message}</TextError>)}
@@ -58,7 +58,7 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
           <div className="inline-block relative w-full">
             <select
               title="Time to live"
-              className="block appearance-none w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
+              className="block appearance-none rounded w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 px-4 py-2 pr-8 shadow leading-tight focus:outline-none focus:shadow-outline"
               {...register("ttl", { required: true })}>
               {ttls.map(({ name, value }) => (
                 <option key={value} value={value}>

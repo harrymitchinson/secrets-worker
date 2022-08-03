@@ -20,53 +20,55 @@ const encryptHandler = async ({ secret, ttl }: Values): Promise<EncryptResponse>
 
 type IndexProps = {
   url: string
+  ttls: TTL[]
 }
 
-const oneMinute = 60;
-const ttls: TTL[] = [
-  {
-    name: "5 minutes",
-    value: oneMinute * 5,
-  },
-  {
-    name: "30 minutes",
-    value: oneMinute * 30,
-  },
-  {
-    name: "1 hour",
-    value: oneMinute * 60,
-  },
-  {
-    name: "4 hours",
-    value: oneMinute * 60 * 4,
-  },
-  {
-    name: "12 hours",
-    value: oneMinute * 60 * 12,
-  },
-  {
-    name: "1 day",
-    value: oneMinute * 60 * 24,
-  },
-  {
-    name: "3 days",
-    value: oneMinute * 60 * 24 * 3,
-  },
-  {
-    name: "7 days",
-    value: oneMinute * 60 * 24 * 7,
-  },
-];
-
 export async function getEdgeProps({ event: { request: { url } } }: { event: EventContext<any, any, any> }) {
+  const oneMinute = 60;
+  const ttls: TTL[] = [
+    {
+      name: "5 minutes",
+      value: oneMinute * 5,
+    },
+    {
+      name: "30 minutes",
+      value: oneMinute * 30,
+    },
+    {
+      name: "1 hour",
+      value: oneMinute * 60,
+    },
+    {
+      name: "4 hours",
+      value: oneMinute * 60 * 4,
+    },
+    {
+      name: "12 hours",
+      value: oneMinute * 60 * 12,
+    },
+    {
+      name: "1 day",
+      value: oneMinute * 60 * 24,
+    },
+    {
+      name: "3 days",
+      value: oneMinute * 60 * 24 * 3,
+    },
+    {
+      name: "7 days",
+      value: oneMinute * 60 * 24 * 7,
+    },
+  ];
   return {
-    revalidate: 0,
-    props: { url } as IndexProps,
+    props: {
+      url,
+      ttls
+    } as IndexProps,
   };
 }
 
-export default function Index({ url }: IndexProps) {
-  const { mutate, data, isLoading, isSuccess, reset } = useMutation<EncryptResponse, Error, Values, any>(encryptHandler);
+export default function Index({ url, ttls }: IndexProps) {
+  const { mutate, data, isLoading, isSuccess, reset } = useMutation(encryptHandler);
 
   const onSubmitHandler = async (data: Values) => {
     await mutate(data);

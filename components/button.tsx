@@ -25,7 +25,7 @@ export default function Button({
       type={type}
       disabled={disabled}
       onClick={onClick}
-      className={`w-full ${colour} ${hover} ${text} font-bold py-2 px-4 focus:outline-none focus:shadow-outline disabled:opacity-50`}>
+      className={`w-full ${colour} ${hover} ${text} rounded font-bold py-2 px-4 focus:outline-none focus:shadow-outline disabled:opacity-50`}>
       {children}</button>
   )
 }
