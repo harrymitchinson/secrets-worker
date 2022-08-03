@@ -1,0 +1,41 @@
+.dark {
+  --color-bg-primary: #2d3748;
+  --color-bg-secondary: #283141;
+  --color-bg-accent-100: #eafbf9;
+  --color-bg-accent-200: #bff2ec;
+  --color-bg-accent-300: #95eadf;
+  --color-bg-accent-400: #6ae1d2;
+  --color-bg-accent-500: #40d9c5;
+  --color-bg-accent-600: #26bfac;
+  --color-bg-accent-700: #1e9586;
+  --color-bg-accent-800: #156a5f;
+  --color-bg-accent-900: #0d4039;
+  --color-text-primary: #f7fafc;
+  --color-text-secondary: #e2e8f0;
+  --color-text-accent: #81e6d9;
+}
+
+.light {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #edf2f7;
+  --color-bg-accent-100: #ebf2fa;
+  --color-bg-accent-200: #c2d8f0;
+  --color-bg-accent-300: #99bee6;
+  --color-bg-accent-400: #70a5dc;
+  --color-bg-accent-500: #478bd2;
+  --color-bg-accent-600: #2d71b8;
+  --color-bg-accent-700: #23588f;
+  --color-bg-accent-800: #193f66;
+  --color-bg-accent-900: #0f263d;
+  --color-text-primary: #2d3748;
+  --color-text-secondary: #4a5568;
+  --color-text-accent: #2b6cb0;
+}
+
+:root {
+  @apply light;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
