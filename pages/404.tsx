@@ -1,6 +1,6 @@
 import React from "react";
 import Title from "../components/title";
-import {useRouter} from "flareact/router";
+import { useRouter } from "flareact/router";
 import CreateAnotherSecret from "../components/create-another-secret";
 
 export async function getEdgeProps() {
@@ -20,8 +20,10 @@ export default function NotFound() {
   }
   return (<>
     <Title title="404">404 😔</Title>
-    <div className="w-full max-w-s mb-8">
-      The requested page was not found or no longer exists.
+    <div className="w-full max-w-s">
+      <div className="mb-4">
+        The requested page was not found or no longer exists.
+      </div>
     </div>
     <CreateAnotherSecret onClick={resetHandler} />
   </>
