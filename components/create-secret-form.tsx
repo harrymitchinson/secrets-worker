@@ -6,6 +6,7 @@ import Button from "./button";
 export interface TTL {
   name: string
   value: number
+  default?: boolean
 }
 
 export interface Props {
@@ -66,8 +67,8 @@ export default function CreateSecretForm({ ttls, onSubmit, disabled }: Props) {
               title="Time to live"
               className="block appearance-none rounded w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 mt-2 px-4 py-2 pr-8 shadow focus:outline focus:outline-teal-500 focus:outline-2 focus:outline-offset-2"
               {...register("ttl", { required: true })}>
-              {ttls.map(({ name, value }) => (
-                <option key={value} value={value}>
+              {ttls.map(({ name, value, default: selected }) => (
+                <option key={value} value={value} selected={selected}>
                   {name}
                 </option>
               ))}

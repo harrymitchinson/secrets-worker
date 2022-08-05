@@ -33,6 +33,7 @@ export async function getEdgeProps({ event: { request: { url } } }: { event: Eve
     {
       name: "30 minutes",
       value: oneMinute * 30,
+      default: true
     },
     {
       name: "1 hour",
